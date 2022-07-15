@@ -3,64 +3,62 @@ import styles from './Searchbar.module.css';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import PropTypes from 'prop-types';
-import { BsSearch } from 'react-icons/bs'
-
-
-
+import { BsSearch } from 'react-icons/bs';
 
 export class Searchbar extends Component {
-    state = {
-        inputValue: '',
-    };
+  state = {
+    inputValue: '',
+  };
 
-    handleInputValue = e => {
-        this.setState({ inputValue: e.currentTarget.value.toLowerCase() });
-    };
+  handleInputValue = e => {
+    this.setState({ inputValue: e.currentTarget.value.toLowerCase() });
+  };
 
-    handleSubmit = e => {
-        e.preventDefault();
+  handleSubmit = e => {
+    e.preventDefault();
 
-        if (this.state.inputValue.trim() === '')  {
-          toast.error('The input field is empty!', {
-            position: 'top-right',
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-          });
-          
-          return;
-        }
-        this.props.onSubmit(this.state.inputValue);
-        this.setState({ inputValue: '' });
-    };
+    if (this.state.inputValue.trim() === '') {
+      toast.error('The input field is empty!', {
+        position: 'top-right',
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
 
-    render() {
-      return (
-        <header className={styles.Searchbar}>
-  <form onSubmit={this.handleSubmit} className={styles.SearchForm }>
-    <button type="submit" className={styles.SearchFormButton}>
-      <span className={styles.SearchFormButtonLabel}><BsSearch /></span>
-    </button>
-
-    <input
-      className={styles.SearchFormInput}
-                  type="text"
-                  name="inputValue"
-                  value={this.state.inputValue}
-                  onChange={this.handleInputValue}
-      autoComplete="off"
-      autoFocus
-      placeholder="Search images and photos"
-    />
-      </form>
-          <ToastContainer />
-</header>
-    )
+      return;
     }
-  
+    this.props.onSubmit(this.state.inputValue);
+    this.setState({ inputValue: '' });
+  };
+
+  render() {
+    return (
+      <header className={styles.Searchbar}>
+        <form onSubmit={this.handleSubmit} className={styles.SearchForm}>
+          <button type="submit" className={styles.SearchFormButton}>
+            <span className={styles.SearchFormButtonLabel}>
+              <BsSearch />
+            </span>
+          </button>
+
+          <input
+            className={styles.SearchFormInput}
+            type="text"
+            name="inputValue"
+            value={this.state.inputValue}
+            onChange={this.handleInputValue}
+            autoComplete="off"
+            autoFocus
+            placeholder="Search images and photos"
+          />
+        </form>
+        <ToastContainer />
+      </header>
+    );
+  }
 }
 
 Searchbar.propTypes = {
