@@ -60,7 +60,7 @@ export class App extends Component {
     });
   };
 
-  onClick = () => {
+  onLoadMoreClick = () => {
     this.setState(({ page }) => {
       return {
         page: page + 1,
@@ -98,7 +98,7 @@ export class App extends Component {
         {images.length !== 0 && (
           <ImageGallery images={images} openModal={this.openModal} />
         )}
-        {images.length > 11 && <Button onClick={this.onClick}></Button>}
+        {images.length > 11 && <Button onLoadMoreClick={this.onLoadMoreClick}></Button>}
         {showModal && (
           <Modal largeImage={largeImage} onModalClick={this.openModal} />
         )}

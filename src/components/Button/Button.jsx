@@ -1,10 +1,10 @@
 import styles from './Button.module.css';
 import PropTypes from 'prop-types';
 
-function Button({ onClick }) {
+function Button({ onLoadMoreClick }) {
   return (
     <div className={styles.buttonPosition}>
-      <button type="button" onClick={onClick} className={styles.button}>
+      <button type="button" onClick={onLoadMoreClick} className={styles.button}>
         Load more
       </button>
     </div>
@@ -12,7 +12,7 @@ function Button({ onClick }) {
 }
 
 Button.propTypes = {
-  onClick: PropTypes.func.isRequired,
+  onLoadMoreClick: PropTypes.func.isRequired,
 };
 
 export default Button;
