@@ -20,12 +20,13 @@ export class Searchbar extends Component {
     if (this.state.inputValue.trim() === '') {
       toast.error('The input field is empty!', {
         position: 'top-right',
-        autoClose: 3000,
+        autoClose: 5000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
+        theme: 'dark',
       });
 
       return;
