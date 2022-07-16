@@ -30,18 +30,15 @@ export class App extends Component {
 
       try {
         const images = await api.fetchImages(query, page);
-        this.setState(prevState => {
-          return {
-            images: [...prevState.images, ...images.hits],
-            loading: false,
-          };
-        });
-        if (!images.hits.length) {
-          this.setState({ images: [] });
+        this.setState(prevState => ({
+          images: [...prevState.images, ...images.hits],
+          loading: false,
+        }));
+
+        if (images.hits.length === 0) {
           toast.error(
             `Sorry, there are no images matching your search query. Please try again.`
           );
-          return;
         }
       } catch (error) {
         this.setState({
@@ -68,13 +65,6 @@ export class App extends Component {
     });
   };
 
-  openModal = image => {
-    this.setState(prevState => ({
-      showModal: !prevState.showModal,
-      largeImage: image,
-    }));
-  };
-
   closeModal = () => {
     this.setState({
       showModal: false,
@@ -82,9 +72,9 @@ export class App extends Component {
   };
 
   onLargeImages = largeImg => {
-    this.openModal();
     this.setState({
       largeImage: largeImg,
+      showModal: true,
     });
   };
 
@@ -95,12 +85,14 @@ export class App extends Component {
         <Searchbar onSubmit={this.handleSubmit} />
         <ToastContainer />
         {loading && <Loader />}
-        {images.length !== 0 && (
-          <ImageGallery images={images} openModal={this.openModal} />
+        {images.length > 0 && (
+          <ImageGallery images={images} openModal={this.onLargeImages} />
         )}
-        {images.length > 11 && <Button onLoadMoreClick={this.onLoadMoreClick}></Button>}
+        {images.length > 0 && (
+          <Button onLoadMoreClick={this.onLoadMoreClick}></Button>
+        )}
         {showModal && (
-          <Modal largeImage={largeImage} onModalClick={this.openModal} />
+          <Modal largeImage={largeImage} onModalClick={this.closeModal} />
         )}
       </div>
     );
