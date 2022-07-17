@@ -13,7 +13,6 @@ export class App extends Component {
     page: 1,
     images: [],
     totalImages: 0,
-    showModal: false,
     largeImage: '',
     selectImageDescription: null,
     loading: false,
@@ -78,19 +77,18 @@ export class App extends Component {
 
   closeModal = () => {
     this.setState({
-      showModal: false,
+      largeImage: false,
     });
   };
 
   onLargeImages = largeImg => {
     this.setState({
       largeImage: largeImg,
-      showModal: true,
     });
   };
 
   render() {
-    const { images, showModal, loading, largeImage } = this.state;
+    const { images, loading, largeImage } = this.state;
     return (
       <div className="app">
         <Searchbar onSubmit={this.handleSubmit} />
@@ -102,7 +100,7 @@ export class App extends Component {
         {images.length > 0 && (
           <Button onLoadMoreClick={this.onLoadMoreClick}></Button>
         )}
-        {showModal && (
+        {largeImage && (
           <Modal largeImage={largeImage} onModalClick={this.closeModal} />
         )}
       </div>
