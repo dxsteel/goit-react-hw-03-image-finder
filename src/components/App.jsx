@@ -1,11 +1,11 @@
 import { Component } from 'react';
 import { toast, ToastContainer } from 'react-toastify';
-import * as api from '../services/api';
-import ImageGallery from './ImageGallery';
-import Loader from './Loader';
-import Button from './Button';
-import Modal from './Modal';
-import Searchbar from './Searchbar';
+import * as api from 'services/api';
+import ImageGallery from 'components/ImageGallery';
+import Loader from 'components/Loader';
+import Button from 'components/Button';
+import Modal from 'components/Modal';
+import Searchbar from 'components/Searchbar';
 
 export class App extends Component {
   state = {
@@ -30,12 +30,13 @@ export class App extends Component {
 
       try {
         const images = await api.fetchImages(query, page);
-        this.setState(prevState => ({
-          images: [...prevState.images, ...images.hits],
-          loading: false,
-        }));
 
-        if (images.hits.length === 0) {
+        if (images.hits.length) {
+          this.setState(prevState => ({
+            images: [...prevState.images, ...images.hits],
+            loading: false,
+          }));
+        } else {
           toast.error(
             `Sorry, there are no images matching your search query. Please try again.`,
             {
