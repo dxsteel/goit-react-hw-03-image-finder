@@ -75,11 +75,11 @@ export class App extends Component {
 
   closeModal = () => {
     this.setState({
-      largeImage: false,
+      largeImage: '',
     });
   };
 
-  onLargeImages = largeImg => {
+  openModal = largeImg => {
     this.setState({
       largeImage: largeImg,
     });
@@ -93,7 +93,7 @@ export class App extends Component {
         <ToastContainer />
         {loading && <Loader />}
         {images.length > 0 && (
-          <ImageGallery images={images} openModal={this.onLargeImages} />
+          <ImageGallery images={images} openModal={this.openModal} />
         )}
         {images.length > 0 && (
           <Button onLoadMoreClick={this.onLoadMoreClick}></Button>
